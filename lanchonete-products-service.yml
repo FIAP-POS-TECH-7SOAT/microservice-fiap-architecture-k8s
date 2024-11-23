@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lanchonete-products-service
+spec:
+  selector:
+    app: lanchonete-products-pod
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3333
+    

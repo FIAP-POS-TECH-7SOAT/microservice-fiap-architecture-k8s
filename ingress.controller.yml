@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lanchonete-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    kubernetes.io/ingress.class: "nginx" 
+spec:
+  rules:
+    - host: localhost
+      http:
+        paths:
+          - path: /service-orders(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: lanchonete-orders-service
+                port:
+                  number: 80
+          - path: /service-products(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: lanchonete-products-service
+                port:
+                  number: 80
+          - path: /service-payment(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: lanchonete-payment-service
+                port:
+                  number: 80
+          - path: /service-productions(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: lanchonete-productions-service
+                port:
+                  number: 80

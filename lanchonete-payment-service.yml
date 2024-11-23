@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lanchonete-payment-service
+spec:
+  selector:
+    app: lanchonete-payment-pod
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3333
+    

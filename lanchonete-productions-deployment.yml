@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lanchonete-deployment-productions
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lanchonete-productions
+  template:
+    metadata:
+      name: lanchonete-productions-pod
+      labels: 
+        app: lanchonete-productions-pod
+    spec:
+      containers:
+        - name: lanchonete-container
+          image: tsrocha901/microservice-fiap-lanchonete-production:latest
+          ports:
+            - containerPort: 3333
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-deployment-productions
+                  key: PORT
+            - name: MONGODB_CONNSTRING
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-deployment-productions
+                  key: MONGODB_CONNSTRING
+            - name: MONGODB_DBNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-deployment-productions
+                  key: MONGODB_DBNAME
+            - name: ENVIRONMENT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-deployment-productions
+                  key: ENVIRONMENT
+          resources:
+            requests:
+              cpu: 10m
+  selector:
+    matchLabels:
+      app: lanchonete-productions-pod

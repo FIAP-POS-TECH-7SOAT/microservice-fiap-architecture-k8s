@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lanchonete-deployment-products
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lanchonete-products
+  template:
+    metadata:
+      name: lanchonete-products-pod
+      labels: 
+        app: lanchonete-products-pod
+    spec:
+      containers:
+        - name: lanchonete-container
+          image: tsrocha901/microservice-fiap-lanchonete-products:latest
+          ports:
+            - containerPort: 3333
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-deployment-products
+                  key: PORT
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map-deployment-products
+                  key: DATABASE_URL
+          livenessProbe: # Prova de vida que valida se o pod esta saudavel para receber requisição 
+            httpGet: # Será feita uma requisição do verbo GET
+              path: /info
+              port: 3333 # Porta do container
+            periodSeconds: 10 # Tentativas a cada X segundos
+            failureThreshold: 3 # Quantas vezes são necessarias falhar a requisição antes de deletar o pod e criar um novo
+            initialDelaySeconds: 20 # Quanto tempo o conteiner deve esperar antes do LivenessProb iniciar os testes
+          readinessProbe:  # Testa para saber se o container está pronto para receber requisição
+            httpGet:
+              path: /info
+              port: 3333
+            periodSeconds: 10
+            failureThreshold: 5 # Com exemplo de 5, se na vez numero 5 ainda estiver acontencendo alguma falha ele ira liberar para o liveness iniciar os testes e dara ao conteiner o status de Pronto
+            initialDelaySeconds: 15
+          resources:
+            requests:
+              cpu: 10m
+  selector:
+    matchLabels:
+      app: lanchonete-products-pod
