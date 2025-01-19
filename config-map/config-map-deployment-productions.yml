@@ -7,4 +7,7 @@ data:
   MONGODB_CONNSTRING: "mongodb+srv://rafayuji:ry123456@fiaplanchonete.lcggi.mongodb.net/"
   MONGODB_DBNAME: "FiapLanchonete"
   ENVIRONMENT: "Dev"
+  AMQP_URL: amqps://cdjivaix:W4n8SrZrycB9HRxjcnWzOTm2eId2RMZX@prawn.rmq.cloudamqp.com/cdjivaix
+  AMQP_ROUTING_KEY: production:ready
+  AMQP_QUEUE: production
 

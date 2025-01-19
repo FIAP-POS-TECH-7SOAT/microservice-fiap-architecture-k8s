@@ -18,27 +18,9 @@ spec:
           image: tsrocha901/microservice-fiap-lanchonete-payment:latest
           ports:
             - containerPort: 3333
-          env:
-            - name: PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-deployment-payments
-                  key: PORT
-            - name: URL_DB
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-deployment-payments
-                  key: URL_DB
-            - name: URL_MELI
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-deployment-payments
-                  key: URL_MELI
-            - name: TOKEN_MELI
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-deployment-payments
-                  key: TOKEN_MELI
+          envFrom:
+            - configMapRef:
+                name: config-map-deployment-payments
           livenessProbe: # Prova de vida que valida se o pod esta saudavel para receber requisição 
             httpGet: # Será feita uma requisição do verbo GET
               path: /health

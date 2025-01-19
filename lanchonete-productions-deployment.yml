@@ -18,27 +18,9 @@ spec:
           image: tsrocha901/microservice-fiap-lanchonete-production:latest
           ports:
             - containerPort: 3333
-          env:
-            - name: PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-deployment-productions
-                  key: PORT
-            - name: MONGODB_CONNSTRING
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-deployment-productions
-                  key: MONGODB_CONNSTRING
-            - name: MONGODB_DBNAME
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-deployment-productions
-                  key: MONGODB_DBNAME
-            - name: ENVIRONMENT
-              valueFrom:
-                configMapKeyRef:
-                  name: config-map-deployment-productions
-                  key: ENVIRONMENT
+          envFrom:
+            - configMapRef:
+                name: config-map-deployment-productions
           resources:
             requests:
               cpu: 10m

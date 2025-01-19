@@ -6,5 +6,9 @@ data:
   PORT: "3333"
   TOKEN_MELI: "TEST-2764458416433009-061313-13858bb6425b63147a40d761b6f72f74-217985726"
   URL_MELI: "https://api.mercadopago.com/v1/payments"
-  URL_DB: "postgresql://postgres:yQRSkvruqzofhPAxgwGWwKziMUmMHEci@junction.proxy.rlwy.net:23706/railway"
+  URL_DB: "postgresql://postgres:jMLvILXFoSiZtAgHYdXwyuPKWAlkbTQv@junction.proxy.rlwy.net:16277/railway"
+  RABBIT_HOST: "amqps://cdjivaix:W4n8SrZrycB9HRxjcnWzOTm2eId2RMZX@prawn.rmq.cloudamqp.com/cdjivaix"
+  ROUTING_KEY: "payment:confirmed"
+  EXCHANGE: "amq.direct"
+
 
